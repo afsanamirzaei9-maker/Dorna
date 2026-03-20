@@ -1,11 +1,11 @@
 @import "tailwindcss";
 
 @font-face {
-    font-family: "vazirMtn";
-    src: url(./assets/fonts/Vazirmatn-VariableFont_wght.ttf), format("ttf");;
+    font-family: "KaushanScript";
+    src: url(./assets/fonts/KaushanScript-Regular.ttf), format("ttf");;
 }
 
 @theme{
-    --font-vazirMatn : "vazirMtn";
+    --font-kaushanScript : "KaushanScript";
 }
 
