@@ -159,3 +159,85 @@ document.querySelectorAll('#modalMenu a').forEach(link => {
       });
     });
 
+
+//scripts for work section from home page
+
+
+
+
+
+(function(){
+  const container = document.querySelector('.cards-row');
+  if (!container) return;
+
+  const lis = Array.from(container.querySelectorAll('li'));
+
+  let lastHoverLi = null;
+  // mousemove: پیدا کردن عنصر دقیق زیر نشانگر با elementFromPoint
+  container.addEventListener('mousemove', (e) => {
+    const el = document.elementFromPoint(e.clientX, e.clientY);
+    if (!el) return;
+
+    // بالا برو تا به li برسیم (یا null)
+    const li = el.closest && el.closest('.cards-row li');
+    if (li !== lastHoverLi) {
+      // پاک کردن قبلی
+      if (lastHoverLi) {
+        lastHoverLi.classList.remove('is-active');
+        lastHoverLi.classList.remove('is-hovered');
+      }
+      if (li) {
+        li.classList.add('is-active');      // برای CSS و z-index
+        li.classList.add('is-hovered');     // اختیاری برای استایل موقت
+      }
+      lastHoverLi = li;
+    }
+  });
+
+  // وقتی موس از کانتینر خارج شد همه را پاک کن
+  container.addEventListener('mouseleave', () => {
+    if (lastHoverLi) lastHoverLi.classList.remove('is-active', 'is-hovered');
+    lastHoverLi = null;
+  });
+
+  // Touch: همان رفتار قبلی اما کلاس را روی li بگذار
+  let lastActive = null;
+  lis.forEach(li => {
+    li.addEventListener('touchstart', (ev) => {
+      const already = li.classList.contains('is-active');
+      if (!already) {
+        ev.preventDefault(); // جلوگیری از ناوبری فوری
+        if (lastActive && lastActive !== li) lastActive.classList.remove('is-active');
+        li.classList.add('is-active');
+        lastActive = li;
+      } else {
+        // اگر قبلاً فعال بود، اجازه بده لینک اجرا شود
+      }
+    }, {passive:false});
+  });
+
+  // لمس بیرون برای پاک کردن
+  document.addEventListener('touchstart', (e) => {
+    if (!e.target.closest('.cards-row li')) {
+      lis.forEach(li => li.classList.remove('is-active'));
+      lastActive = null;
+    }
+  }, {passive:true});
+
+  // Keyboard: وقتی کارت فوکوس می‌گیرد والد را is-active کن
+  lis.forEach(li => {
+    const card = li.querySelector('.work-card');
+    if (!card) return;
+    card.setAttribute('tabindex', '0');
+    card.addEventListener('focus', () => {
+      if (lastActive && lastActive !== li) lastActive.classList.remove('is-active');
+      li.classList.add('is-active');
+      lastActive = li;
+    });
+    card.addEventListener('blur', () => {
+      li.classList.remove('is-active');
+      if (lastActive === li) lastActive = null;
+    });
+  });
+
+})();

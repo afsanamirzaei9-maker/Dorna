@@ -1,7 +1,11 @@
 :root{
     --teal-strong: #073835;
     --teal-fade: rgba(0,81,75,0.08); /* کمرنگ سمت راست */
+    --primary-1: #00514B;
+    --primary-2: #00B7A9;
+    
 }
+
 /* css styles for why us section from home page */
 body { font-family: 'Poppins', sans-serif; }
 .script { font-family: 'Pacifico', cursive; }
@@ -119,3 +123,308 @@ body { font-family: 'Poppins', sans-serif; }
  
 
 
+/* css styles for work section from home page */
+
+:root{
+
+  /* Desktop (default) */
+  --section-w: 1440px;
+  --section-h: 600px;
+  --wrapper-w: 1174px;
+  --wrapper-h: 530px;
+
+  --card-w: 220px;
+  --card-h: 220px;
+  --card-radius: 30px;
+  --card-border: 2px;
+  --card-rotate: 6deg;
+
+  --bg-text-w: 886px;
+  --bg-text-h: 211px;
+  --bg-text-size: 128px;
+
+  --nav-w: 750px;
+  --nav-h: 69px;
+
+  --card-shadow: 10px 10px 20px rgb(53, 53, 53);
+  --card-shadow-active: 0 28px 30px rgb(53, 53, 53);
+}
+
+/* Responsive card sizes: override variables at breakpoints */
+@media (max-width: 1024px) {
+  :root {
+    --card-w: 220px;
+    --card-h: 220px;
+  }
+}
+@media (max-width: 640px) {
+  :root {
+    --card-w: 160px;
+    --card-h: 160px;
+  }
+}
+
+html,body { height:100%; margin:0; }
+body{
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background:#f3f7f6;
+  color:#0f172a;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+
+/* Section frame */
+.works-section { display:flex; justify-content:center; padding-top: 24px; padding-bottom: 24px; }
+.works-frame {
+  width: var(--section-w);
+  height: var(--section-h);
+  max-width: 100%;
+  margin: 0 auto;
+  position: relative;
+  box-sizing: border-box;
+  overflow: visible;
+}
+
+/* Header */
+.works-header { text-align:center; margin-top: 8px; z-index: 30; position: relative; }
+.works-subtitle { color: var(--primary-1); font-weight:800; letter-spacing: .12em; font-size: 13px; margin-top:8px; }
+.works-title { font-size: 28px; font-weight:800; margin-top:8px;  }
+
+/* Background big text (Pacifico, gradient) */
+.bg-hero-text {
+  position:absolute;
+  width: var(--bg-text-w);
+  height: var(--bg-text-h);
+  left: 50%;
+  transform: translateX(-50%);
+  top: 250px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index: 0;
+  pointer-events: none;
+  user-select: none;
+  font-family: 'Pacifico', cursive;
+  font-size: var(--bg-text-size);
+  line-height: 1;
+  letter-spacing: 0;
+  text-transform: capitalize;
+  background: linear-gradient(90deg,  #07383570, rgba(0, 143, 133, 0.342));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  font-weight: 400;
+}
+
+/* On smaller screens move bg text to bottom area */
+@media (max-width: 1024px) {
+  .bg-hero-text { top: auto; bottom: calc(var(--card-h) + 120px); font-size: clamp(36px, 9vw, 80px); width: 100%; }
+}
+@media (max-width: 640px) {
+  .bg-hero-text { bottom: calc(var(--card-h) + 140px); font-size: clamp(28px, 9vw, 56px); }
+}
+
+/* Cards wrapper */
+.cards-wrapper {
+  width: var(--wrapper-w);
+  height: var(--wrapper-h);
+  max-width: 100%;
+  margin: 0 auto;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  /* top: calc( (var(--section-h) - var(--wrapper-h)) / 2 + 100px ); */
+  top: 0;
+  z-index: 20;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+/* Cards row */
+.cards-row {
+  width: 100%;
+  height: 100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap: 0;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  position: relative;
+}
+.cards-row li { list-style:none; position: relative; }
+
+/* Card base */
+.work-card {
+  width: var(--card-w);
+  height: var(--card-h);
+  border-radius: var(--card-radius);
+  overflow: hidden;
+  border: var(--card-border) solid #ffffff;
+  box-shadow: var(--card-shadow);
+  transform-origin: center;
+  transition: transform .28s cubic-bezier(.2,.9,.2,1), box-shadow .28s ease, z-index 0s;
+  position: relative;
+  background: #fff;
+  display:block;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.work-card img { width:100%; height:100%; object-fit:cover; display:block; border-radius: inherit; -webkit-user-drag:none; user-select:none; }
+
+/* initial rotation: first (leftmost) no rotation, others alternate */
+.cards-row li:nth-child(1) .work-card { transform: none; }
+.cards-row li:nth-child(2) .work-card { transform: rotate(calc(var(--card-rotate) * -1)); margin-right:40px}
+.cards-row li:nth-child(3) .work-card { transform: rotate(var(--card-rotate)); }
+.cards-row li:nth-child(4) .work-card { transform: rotate(calc(var(--card-rotate) * -1)); margin-right:40px}
+.cards-row li:nth-child(5) .work-card { transform: rotate(var(--card-rotate)); }
+.cards-row li:nth-child(6) .work-card { transform: rotate(calc(var(--card-rotate) * -1)); margin-right:40px}
+
+/* Overlap: use card width to compute negative margin (responsive) */
+
+
+/* اطمینان از position برای کنترل z-index */
+.cards-row li { position: relative; pointer-events: auto; }
+
+/* همپوشانی اجباری */
+.cards-row li + li { margin-right: calc(var(--card-w) * -0.28) !important; }
+
+/* وقتی li در حالت hover/focus-within/is-active است، آن را بالا می‌بریم */
+.cards-row li:hover,
+.cards-row li:focus-within,
+.cards-row li.is-active {
+  z-index: 9999 !important;
+}
+
+/* انیمیشن و صاف شدن کارت را روی خود کارت نگه دار اما با selector روی li */
+@media (hover: hover) and (pointer: fine) {
+  .cards-row li:hover .work-card,
+  .cards-row li:focus-within .work-card {
+    transform: rotate(0deg) translateY(-12px);
+    box-shadow: var(--card-shadow-active);
+  }
+}
+
+/* کلاس is-active روی li برای لمسی */
+.cards-row li.is-active .work-card {
+  transform: rotate(0deg) translateY(-12px) !important;
+  box-shadow: var(--card-shadow-active) !important;
+}
+
+/* مطمئن شو هیچ عنصر پوشاننده pointer-events: none نباشد مگر عمداً */
+.bg-hero-text { pointer-events: none; }
+
+
+
+/* Bottom navbar (centered) */
+.bottom-nav {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 24px;
+  width: var(--nav-w);
+  height: var(--nav-h);
+  max-width: calc(100% - 40px);
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 5px 5px 5px rgb(53, 53, 53);
+  display:flex;
+  align-items:center;
+  justify-content: center;
+  gap: 12px;
+  padding: 8px;
+  z-index: 40;
+}
+.bottom-nav a {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding: 10px 18px;
+  border-radius: 10px;
+  color: #0f172a;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background .18s ease, color .18s ease, transform .12s ease;
+  white-space: nowrap;
+}
+.bottom-nav a:hover, .bottom-nav a:focus {
+  background: linear-gradient(90deg, var(--primary-1), var(--primary-2));
+  color: #fff;
+  transform: translateY(-3px);
+  outline: none;
+}
+
+/* Mobile & tablet adjustments */
+@media (max-width: 1024px) {
+  .cards-wrapper { top: 0; }
+  .work-card {
+    width: 180px;
+    height: 180px;
+  }
+  .bg-hero-text{
+    top:240px;
+  }
+  .bottom-nav{
+    bottom: 40;
+  }
+}
+
+@media (max-width: 768px) {
+  /* vertical stack with half-overlap */
+  .cards-row { flex-direction: column; align-items:center; justify-content:flex-end; }
+  .cards-row li + li { margin-top: calc(var(--card-h) / -2); margin-right: 0; }
+
+  /* remove initial rotate on mobile */
+  .cards-row li:nth-child(1) .work-card,
+  .cards-row li:nth-child(2) .work-card,
+  .cards-row li:nth-child(3) .work-card,
+  .cards-row li:nth-child(4) .work-card,
+  .cards-row li:nth-child(5) .work-card,
+  .cards-row li:nth-child(6) .work-card {
+    transform: none !important;
+    top: 300px;
+  }
+  .cards-row li:nth-child(1) .work-card{
+    margin-left:40px
+  }
+  .work-card{
+    margin-top: 40px;
+
+  }
+  /* ensure last card fully visible: increase bottom padding of frame */
+  .works-frame { padding-bottom: calc(var(--card-h) + 160px); --section-h: 1140px; }
+
+  /* move bg text below cards */
+  .bg-hero-text { top: 710px; bottom: calc(var(--card-h) + 120px); width: 100%; text-align:center; }
+
+  /* navbar stacked column under section */
+  .bottom-nav {
+    position: static;
+    transform: none;
+    width: calc(50% );
+    margin: 24px auto 0;
+    height: auto;
+    flex-direction: column;
+    gap: 10px;
+    padding: 12px;
+    border-radius: 12px;
+  }
+  .bottom-nav a { width:100%; padding: 12px; border-radius: 8px; text-align:center; }
+}
+
+@media (max-width: 425px) {
+  .cards-wrapper { top: 160px; }
+  .works-frame{--section-h: 1300px; }
+  .bg-hero-text{
+    top:880px;
+  }
+
+}
+/* tiny screens */
+@media (max-width: 360px) {
+  .cards-wrapper { padding-left: 8px; padding-right: 8px; }
+}
+ 
