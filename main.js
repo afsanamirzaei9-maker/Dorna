@@ -9,7 +9,8 @@ const closeMenuBtn = document.getElementById('closeMenuBtn');
 function openMenu() {
     modalBackdrop.classList.remove('opacity-0', 'pointer-events-none');
     modalBackdrop.classList.add('opacity-100', 'pointer-events-auto');
-    modalMenu.classList.remove('opacity-0', 'scale-95', 'pointer-events-none');
+    //modalMenu.classList.remove('opacity-0', 'scale-95', 'pointer-events-none');
+    modalMenu.style.display = 'block';
     modalMenu.classList.add('opacity-100', 'scale-100', 'pointer-events-auto');
     document.body.style.overflow = 'hidden';
 }
@@ -18,7 +19,8 @@ function openMenu() {
 function closeMenu() {
     modalBackdrop.classList.remove('opacity-100', 'pointer-events-auto');
     modalBackdrop.classList.add('opacity-0', 'pointer-events-none');
-    modalMenu.classList.remove('opacity-100', 'scale-100', 'pointer-events-auto');
+    //modalMenu.classList.remove('opacity-100', 'scale-100', 'pointer-events-auto');
+    modalMenu.style.display = 'none';
     modalMenu.classList.add('opacity-0', 'scale-95', 'pointer-events-none');
     document.body.style.overflow = '';
 }
